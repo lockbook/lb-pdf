@@ -8,10 +8,10 @@ pub struct PdfiumWrapper {
 impl PdfiumWrapper {
     #[cfg(target_os = "windows")]
     pub fn init(binary_path: &String) {
-        let lib_bytes = include_bytes!("../pdfium-windows/lib/pdfium.dll.lib");
+        let lib_bytes = include_bytes!("../pdfium-windows/lib/pdfium.dll");
 
         fs::create_dir_all(Path::new(&binary_path).parent().unwrap()).unwrap();
-        let binary_path = format!("{}/pdfium.dll.lib", binary_path);
+        let binary_path = format!("{}/pdfium.dll", binary_path);
         println!("{:#?}", binary_path);
         //make sure the path is valid
         fs::write(binary_path, lib_bytes).unwrap();
