@@ -1,9 +1,13 @@
 [package]
 name = "lb-pdf"
-version = "0.2.1"
+version = "0.2.3"
 edition = "2021"
 license = "MIT"
 description = "wrapper for pdfium render that includes the pdfium binary" 
 
 [dependencies]
-pdfium-render = "0.8.11"
+
+
+[target.'cfg(target_vendor = "apple")'.dependencies]
+link-cplusplus = "1.0"
+pdfium-render = { version = "0.8.11", features = ["static"] }
