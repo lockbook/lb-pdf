@@ -7,6 +7,8 @@ description = "wrapper for pdfium render that includes the pdfium binary"
 
 [dependencies]
 
+[target.'cfg(not(target_vendor = "apple"))'.dependencies]
+pdfium-render = { version = "0.8.11" }
 
 [target.'cfg(target_vendor = "apple")'.dependencies]
 link-cplusplus = "1.0"
