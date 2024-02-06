@@ -54,7 +54,7 @@ pub fn init(binary_path: &String) -> Pdfium {
     let lib_bytes = include_bytes!("../pdfium-linux/lib/libpdfium.so");
 
     fs::create_dir_all(Path::new(&binary_path).parent().unwrap()).unwrap();
-    let binary_path = format!("{}/libpdfium.so", binary_path);
+    let binary_path = format!("{}/libpdfium.so", &binary_path);
     //make sure the path is valid
     fs::write(binary_path, lib_bytes).unwrap();
 
