@@ -18,12 +18,11 @@ pub fn init(binary_path: &String) -> Pdfium {
     let binary_path = format!("{}/pdfium.dll", binary_path);
     println!("{:#?}", binary_path);
     //make sure the path is valid
-    fs::write(binary_path, lib_bytes).unwrap();
+    fs::write(&binary_path, lib_bytes).unwrap();
 
-    let bindings = Pdfium::bind_to_library(Pdfium::pdfium_platform_library_name_at_path(
-        &binary_path,
-    ))
-        .unwrap();
+    let bindings =
+        Pdfium::bind_to_library(Pdfium::pdfium_platform_library_name_at_path(&binary_path))
+            .unwrap();
 
     Pdfium::new(bindings)
 }
@@ -37,12 +36,11 @@ pub fn init(binary_path: &String) -> Pdfium {
     let binary_path = format!("{}/pdfium.dll", binary_path);
     println!("{:#?}", binary_path);
     //make sure the path is valid
-    fs::write(binary_path, lib_bytes).unwrap();
+    fs::write(&binary_path, lib_bytes).unwrap();
 
-    let bindings = Pdfium::bind_to_library(Pdfium::pdfium_platform_library_name_at_path(
-        &binary_path,
-    ))
-        .unwrap();
+    let bindings =
+        Pdfium::bind_to_library(Pdfium::pdfium_platform_library_name_at_path(&binary_path))
+            .unwrap();
 
     Pdfium::new(bindings)
 }
@@ -58,11 +56,9 @@ pub fn init(binary_path: &String) -> Pdfium {
     //make sure the path is valid
     fs::write(&binary_path, lib_bytes).unwrap();
 
-    let bindings = Pdfium::bind_to_library(Pdfium::pdfium_platform_library_name_at_path(
-        &binary_path,
-    ))
-        .unwrap();
+    let bindings =
+        Pdfium::bind_to_library(Pdfium::pdfium_platform_library_name_at_path(&binary_path))
+            .unwrap();
 
     Pdfium::new(bindings)
 }
-
