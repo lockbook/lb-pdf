@@ -30,14 +30,14 @@ pub fn init(binary_folder: &String) -> Pdfium {
 }
 
 #[cfg(all(target_os = "windows", target_arch = "aarch64"))]
-pub fn init(binary_path: &String) -> Pdfium {
+pub fn init(binary_folder: &String) -> Pdfium {
     let binary_name = "pdfium.dll";
     let lib_bytes = include_bytes!("../pdfium-windows/arm64/lib/pdfium.dll");
     init_dynamically_linked(binary_folder, binary_name, lib_bytes)
 }
 
 #[cfg(target_os = "linux")]
-pub fn init(binary_path: &String) -> Pdfium {
+pub fn init(binary_folder: &String) -> Pdfium {
     let binary_name = "libpdfium.so";
     let lib_bytes = include_bytes!("../pdfium-linux/lib/libpdfium.so");
     init_dynamically_linked(binary_folder, binary_name, lib_bytes)
