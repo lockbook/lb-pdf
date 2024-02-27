@@ -42,3 +42,25 @@ pub fn init(binary_folder: &String) -> Pdfium {
     let lib_bytes = include_bytes!("../pdfium-linux/lib/libpdfium.so");
     init_dynamically_linked(binary_folder, binary_name, lib_bytes)
 }
+
+#[cfg(target_os = "android")]
+pub fn init(binary_folder: &String) -> Pdfium {
+    let binary_name = "libpdfium.so";
+    let lib_bytes = if cfg!(target_arch = "aarch64") {
+        let lib_bytes = include_bytes!("../pdfium-android/arm64-v8a/lib/libpdfium.so");
+        init_dynamically_linked(binary_folder, binary_name, lib_bytes)
+    } else if cfg!(target_arch = "armv7") {
+        let lib_bytes = include_bytes!("../pdfium-android/armeabi-v7a/lib/libpdfium.so");
+        init_dynamically_linked(binary_folder, binary_name, lib_bytes)
+    } else if cfg!(target_arch = "x86") {
+        let lib_bytes = include_bytes!("../pdfium-android/x86/lib/libpdfium.so");
+        init_dynamically_linked(binary_folder, binary_name, lib_bytes)
+    } else if cfg!(target_arch = "x86_64") {
+        let lib_bytes = include_bytes!("../pdfium-android/x86_64/lib/libpdfium.so");
+        init_dynamically_linked(binary_folder, binary_name, lib_bytes)
+    } else {
+        panic!("unsupported target architecture")
+    };
+
+    lib_bytes
+}
