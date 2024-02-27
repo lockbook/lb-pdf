@@ -8,8 +8,6 @@ fn main() {
             current_dir.push("pdfium-ios");
         } else if ios_sim() {
             current_dir.push("pdfium-ios-sim");
-        } else if android() {
-            current_dir.push("pdfium-android")
         }
 
         let current_dir = current_dir.display();
