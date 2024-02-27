@@ -8,10 +8,6 @@ fn main() {
             current_dir.push("pdfium-ios");
         } else if ios_sim() {
             current_dir.push("pdfium-ios-sim");
-        } else if android() {
-            todo!(
-                "@smail get android static lib from: https://github.com/paulocoutinhox/pdfium-lib"
-            )
         }
 
         let current_dir = current_dir.display();
@@ -42,5 +38,5 @@ fn apple() -> bool {
 }
 
 fn should_static_link() -> bool {
-    android() || apple()
+    apple()
 }
