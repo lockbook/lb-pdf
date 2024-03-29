@@ -29,10 +29,6 @@ fn ios_sim() -> bool {
     std::env::var("TARGET").unwrap() == "aarch64-apple-ios-sim"
 }
 
-fn android() -> bool {
-    std::env::var("CARGO_CFG_TARGET_OS").unwrap() == "android"
-}
-
 fn apple() -> bool {
     std::env::var("CARGO_CFG_TARGET_VENDOR").unwrap() == "apple"
 }
