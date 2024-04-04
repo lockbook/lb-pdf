@@ -12,7 +12,7 @@ pub fn init(_statically_linked: &str) -> Pdfium {
 fn init_dynamically_linked(binary_folder: &str, binary_name: &str, lib_bytes: &[u8]) -> Pdfium {
     use std::{fs, path::Path};
 
-    fs::create_dir_all(Path::new(&binary_folder).parent().unwrap()).unwrap();
+    fs::create_dir_all(Path::new(&binary_folder)).unwrap();
     let binary_path = format!("{}/{}", binary_folder, binary_name);
     fs::write(&binary_path, lib_bytes).unwrap();
     let bindings =
