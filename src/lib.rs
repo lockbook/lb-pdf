@@ -12,7 +12,7 @@ pub fn init(_statically_linked: &str) -> Pdfium {
 fn init_dynamically_linked(binary_folder: &str, binary_name: &str, lib_bytes: &[u8]) -> Pdfium {
     use std::{fs, path::Path};
 
-    fs::create_dir_all(Path::new(&binary_folder).parent().unwrap()).unwrap();
+    fs::create_dir_all(Path::new(&binary_folder)).unwrap();
     let binary_path = format!("{}/{}", binary_folder, binary_name);
     fs::write(&binary_path, lib_bytes).unwrap();
     let bindings =
@@ -41,4 +41,26 @@ pub fn init(binary_folder: &String) -> Pdfium {
     let binary_name = "libpdfium.so";
     let lib_bytes = include_bytes!("../pdfium-linux/lib/libpdfium.so");
     init_dynamically_linked(binary_folder, binary_name, lib_bytes)
+}
+
+#[cfg(target_os = "android")]
+pub fn init(binary_folder: &String) -> Pdfium {
+    let binary_name = "libpdfium.so";
+    let lib_bytes = if cfg!(target_arch = "aarch64") {
+        let lib_bytes = include_bytes!("../pdfium-android/arm64-v8a/lib/libpdfium.so");
+        init_dynamically_linked(binary_folder, binary_name, lib_bytes)
+    } else if cfg!(target_arch = "armv7") {
+        let lib_bytes = include_bytes!("../pdfium-android/armeabi-v7a/lib/libpdfium.so");
+        init_dynamically_linked(binary_folder, binary_name, lib_bytes)
+    } else if cfg!(target_arch = "x86") {
+        let lib_bytes = include_bytes!("../pdfium-android/x86/lib/libpdfium.so");
+        init_dynamically_linked(binary_folder, binary_name, lib_bytes)
+    } else if cfg!(target_arch = "x86_64") {
+        let lib_bytes = include_bytes!("../pdfium-android/x86_64/lib/libpdfium.so");
+        init_dynamically_linked(binary_folder, binary_name, lib_bytes)
+    } else {
+        panic!("unsupported target architecture")
+    };
+
+    lib_bytes
 }
